@@ -59,38 +59,18 @@ let tab1 = document.querySelector("#tab-1");
 tab1.innerHTML = `${day}, ${date} ${month}`;
 
 // JS TAB2
-let tomorrow = new Date();
-tomorrow.setDate(now.getDate() + 1);
-let dayTomorrow = days[tomorrow.getDay()];
-let dateTomorrow = tomorrow.getDate();
-let monthTomorrow = months[tomorrow.getMonth()];
-
 let tab2 = document.querySelector("#tab-2");
-tab2.innerHTML = `${dayTomorrow}, ${dateTomorrow} ${monthTomorrow}`;
 
 // TABS INTERACTIVE ACTIVATION
-function alternateToTab2(event) {
+function activateTab2(event) {
     event.preventDefault();
-    // remove active from tab 1
-    let tab1Element = document.querySelector("#tab-1");
-    tab1Element.classList.remove("active");
+
     // add active to tab 2
     let tab2Element = document.querySelector("#tab-2");
     tab2Element.classList.add("active");
 }
 
-function alternateToTab1(event) {
-    event.preventDefault();
-    // remove active from tab 1
-    let tab2Element = document.querySelector("#tab-2");
-    tab2Element.classList.remove("active");
-    // add active to tab 2
-    let tab1Element = document.querySelector("#tab-1");
-    tab1Element.classList.add("active");
-}
-
-tab1.addEventListener("click", alternateToTab1);
-tab2.addEventListener("click", alternateToTab2);
+tab2.addEventListener("click", activateTab2);
 
 // SEARCH BOX
 
@@ -153,6 +133,10 @@ function handleClick(event) {
     let cityInputElement = document.querySelector("#city-input");
     let userCityName = cityInputElement.value;
     search(userCityName);
+
+    // Remove active from tab 2
+    let tab2Element = document.querySelector("#tab-2");
+    tab2Element.classList.remove("active");
 }
 
 let searchBox = document.querySelector("#city-input");
