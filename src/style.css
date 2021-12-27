@@ -75,11 +75,13 @@ footer {
 .todayweather-maincard {
     margin: 25px 0 15px 0;
 }
-.main-weather-image {
+.main-weather-icon {
     width: 60%;
     display: block;
     margin: 0 auto;
     margin: -5px 6px 25px 21px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    background-color: #ffffff;
 }
 .precipitation-wind-humidity {
     font-size: 80%;
@@ -90,4 +92,7 @@ footer {
 }
 .fa-map-marker {
     color: gray;
+}
+#tab-1 {
+    font-weight: 250;
 }

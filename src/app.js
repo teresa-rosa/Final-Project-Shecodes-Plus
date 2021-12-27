@@ -226,7 +226,7 @@ function displayForecast(response) {
             forecastHTML =
                 forecastHTML +
                 `<div class="col"">
-                        <div class="card text-center bg-light mb-3" style="width: 5.5rem;">
+                        <div class="card text-center .bg-white" style="width: 5.5rem;">
                             <div class="card-body">
                                <div class="weather-forecast-date">${formatDay(
                                    forecastDay.dt
