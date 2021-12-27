@@ -68,10 +68,10 @@ let monthTomorrow = months[tomorrow.getMonth()];
 let tab2 = document.querySelector("#tab-2");
 tab2.innerHTML = `${dayTomorrow}, ${dateTomorrow} ${monthTomorrow}`;
 
+}
 // SEARCH BOX
 
 function displayUserCityInfo(response) {
-    console.log(response.data);
     // City name
     let cityElement = document.querySelector("#city");
     cityElement.innerHTML = response.data.name;
