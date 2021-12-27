@@ -88,3 +88,7 @@ footer {
     padding: 15px 35px 0px 35px;
     margin: 0 0 35px 0;
 }
+.padding-0 {
+    padding-right: 0;
+    padding-left: 0;
+}
