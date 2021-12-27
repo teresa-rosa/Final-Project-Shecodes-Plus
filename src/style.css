@@ -93,6 +93,9 @@ footer {
 .fa-map-marker {
     color: gray;
 }
+.weather-forecast {
+    padding-bottom: 12px;
+}
 #tab-1 {
     font-weight: 250;
 }
