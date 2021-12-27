@@ -41,3 +41,30 @@ let monthTomorrow = months[tomorrow.getMonth()];
 
 let tab2 = document.querySelector("#tab-2");
 tab2.innerHTML = `${dayTomorrow}, ${dateTomorrow} ${monthTomorrow}`;
+
+// SEARCH BOX
+
+function displayUserCityInfo(response) {
+    console.log(response.data);
+}
+
+function handleClick(event) {
+    event.preventDefault();
+    let cityInputElement = document.querySelector("#city-input");
+    let userCityName = cityInputElement.value;
+    let apiKey = "8c362dd932bee69aa7eece7fea98811a";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${userCityName}&appid=${apiKey}&units=metric`;
+
+    axios.get(apiUrl).then(displayUserCityInfo);
+}
+
+let searchBox = document.getElementById("city-input");
+searchBox.addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById("search-city-btn").click();
+    }
+});
+
+let searchBoxBtn = document.querySelector("#search-city-btn");
+searchBoxBtn.addEventListener("click", handleClick);
