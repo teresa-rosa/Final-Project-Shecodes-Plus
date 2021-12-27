@@ -62,12 +62,21 @@ tab1.innerHTML = `${day}, ${date} ${month}`;
 let tab2 = document.querySelector("#tab-2");
 
 // TABS INTERACTIVE ACTIVATION
+
+function handleTempUserLocation(position) {
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(displayUserCityInfo);
+}
+
 function activateTab2(event) {
     event.preventDefault();
 
     // add active to tab 2
     let tab2Element = document.querySelector("#tab-2");
     tab2Element.classList.add("active");
+
+    //display weather for the current location
+    navigator.geolocation.getCurrentPosition(handleTempUserLocation);
 }
 
 tab2.addEventListener("click", activateTab2);
