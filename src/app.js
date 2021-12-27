@@ -1,4 +1,5 @@
 let apiKey = "8c362dd932bee69aa7eece7fea98811a";
+let currentUnit = "C";
 
 function formatDate(timestamp) {
     let date = new Date(timestamp);
@@ -64,7 +65,12 @@ let tab2 = document.querySelector("#tab-2");
 // TABS INTERACTIVE ACTIVATION
 
 function handleTempUserLocation(position) {
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+    let apiUrl;
+    if (currentUnit === "C") {
+        apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+    } else {
+        apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=imperial`;
+    }
     axios.get(apiUrl).then(displayUserCityInfo);
 }
 
@@ -75,7 +81,12 @@ function activateTab2(event) {
     let tab2Element = document.querySelector("#tab-2");
     tab2Element.classList.add("active");
 
-    //display weather for the current location
+    // alert slow API request
+    alert(
+        "Working on getting the weather for your location. It may take a while."
+    );
+
+    // display weather for the current location
     navigator.geolocation.getCurrentPosition(handleTempUserLocation);
 }
 
@@ -106,7 +117,16 @@ function displayUserCityInfo(response) {
 
     // Main temp
     let temperatureElement = document.querySelector("#main-temperature");
-    temperatureElement.innerHTML = `${Math.round(response.data.main.temp)}ºC`;
+
+    if (currentUnit === "C") {
+        temperatureElement.innerHTML = `${Math.round(
+            response.data.main.temp
+        )}ºC`;
+    } else {
+        temperatureElement.innerHTML = `${Math.round(
+            response.data.main.temp
+        )}F`;
+    }
 
     // Wind
     let windElement = document.querySelector("#wind");
@@ -118,22 +138,41 @@ function displayUserCityInfo(response) {
 
     // MAX
     let maxTemperatureElement = document.querySelector("#maxTemperature");
-    maxTemperatureElement.innerHTML = ` ${Math.round(
-        response.data.main.temp_max
-    )}º max `;
+
+    if (currentUnit === "C") {
+        maxTemperatureElement.innerHTML = ` ${Math.round(
+            response.data.main.temp_max
+        )}º max `;
+    } else {
+        maxTemperatureElement.innerHTML = ` ${Math.round(
+            response.data.main.temp_max
+        )}F max `;
+    }
 
     // MIN
     let minTemperatureElement = document.querySelector("#minTemperature");
-    minTemperatureElement.innerHTML = ` ${Math.round(
-        response.data.main.temp_min
-    )}º min `;
+
+    if (currentUnit === "C") {
+        minTemperatureElement.innerHTML = ` ${Math.round(
+            response.data.main.temp_min
+        )}º min `;
+    } else {
+        minTemperatureElement.innerHTML = ` ${Math.round(
+            response.data.main.temp_min
+        )}F min `;
+    }
 
     // For forecast
     getForecast(response.data.coord);
 }
 
 function search(city) {
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    let apiUrl;
+    if (currentUnit === "C") {
+        apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    } else {
+        apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
+    }
     axios.get(apiUrl).then(displayUserCityInfo);
 }
 
@@ -175,6 +214,13 @@ function displayForecast(response) {
     let forecastElement = document.querySelector("#forecast");
     let forecastHTML = `<div class="row mx-0">`;
 
+    let unitSign;
+    if (currentUnit === "C") {
+        unitSign = "º";
+    } else {
+        unitSign = "F";
+    }
+
     forecast.forEach(function (forecastDay, index) {
         if (index > 0 && index < 6) {
             forecastHTML =
@@ -192,18 +238,22 @@ function displayForecast(response) {
                                    <span
                                        class="weather-forecast-temperature-max"
                                    >
-                                      ${Math.round(forecastDay.temp.max)}º
+                                      ${Math.round(
+                                          forecastDay.temp.max
+                                      )}${unitSign}
                                    </span>
                                    <br/>
                                    <span
                                        class="weather-forecast-temperature-min"
                                    >
-                                       ${Math.round(forecastDay.temp.min)}º
+                                       ${Math.round(
+                                           forecastDay.temp.min
+                                       )}${unitSign}
                                    </span>
-                                      </div>
+                                </div>
                            </div>
-                               </div>
-                           </div>`;
+                        </div>
+                </div>`;
         }
     });
 
@@ -212,7 +262,12 @@ function displayForecast(response) {
 }
 
 function getForecast(coordinates) {
-    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+    let apiUrl;
+    if (currentUnit === "C") {
+        apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+    } else {
+        apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial`;
+    }
     axios.get(apiUrl).then(displayForecast);
 }
 
@@ -228,7 +283,6 @@ function convertFahrenheitToCelsius(fahrenheitTemperature) {
     return celsiusTemperature;
 }
 
-let currentUnit = "C";
 function handleSwitch(event) {
     if (currentUnit === "C") {
         // Main temperature F
