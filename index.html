@@ -87,26 +87,22 @@
                                 <img
                                     class="main-weather-image"
                                     src="#"
-                                    alt="sun-icon"
+                                    alt=""
+                                    id="main-icon"
                                 />
                             </div>
 
                             <div class="col-4">
                                 <h2 id="main-temperature">17ºC</h2>
-                                <div class="precipitation-wind-humidity">
-                                    <span>
-                                        <i class="fas fa-umbrella"></i>
-                                    </span>
-                                    <span>precipitation: 0%</span>
 
-                                    <br />
+                                <div class="precipitation-wind-humidity">
                                     <span>
                                         <i class="fas fa-wind"></i>
                                     </span>
-                                    <span> wind: 8-19km/h </span>
+                                    <span id="wind"> Wind: 8-19km/h </span>
                                     <br />
                                     <span> <i class="fas fa-tint"></i></span>
-                                    <span> Humidity: 0% </span>
+                                    <span id="humidity"> Humidity: 0% </span>
                                 </div>
                             </div>
 
@@ -114,12 +110,16 @@
                                 <span class="max-min-temperature">
                                     <div>
                                         <i class="fas fa-long-arrow-alt-up"></i>
-                                        <span> 20º max </span>
+                                        <span id="maxTemperature">
+                                            20º max
+                                        </span>
                                     </div>
                                     <div>
                                         <i class="fas fa-long-arrow-alt-down">
                                         </i>
-                                        <span> 11º min </span>
+                                        <span id="minTemperature">
+                                            11º min
+                                        </span>
                                     </div>
                                 </span>
                             </div>
